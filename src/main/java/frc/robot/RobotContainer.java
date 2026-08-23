@@ -6,15 +6,22 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.commands.OpenIntakeWithTimeout;
+import frc.robot.subsystems.Intake;
 
 public class RobotContainer {
+  private Intake intake;
+  private Command AutonomousInitOpenIntakeCommand;
+
   public RobotContainer() {
     configureBindings();
+    intake = new Intake();
+    AutonomousInitOpenIntakeCommand = new OpenIntakeWithTimeout(intake, Constants.AutonomousInitOpenIntakeTimeout);
   }
 
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return AutonomousInitOpenIntakeCommand;
   }
 }
