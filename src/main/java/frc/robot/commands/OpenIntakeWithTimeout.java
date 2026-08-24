@@ -12,6 +12,7 @@ public class OpenIntakeWithTimeout extends Command{
     public OpenIntakeWithTimeout(Intake intake, double timeout) {
         this.intake = intake;
         this.timeout = timeout;
+        addRequirements(intake);
     }
 
     @Override
