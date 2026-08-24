@@ -7,7 +7,7 @@ public class Intake extends SubsystemBase{
 
     @Override
     public void periodic() {
-        System.out.println("Intake is: " + ((intakeOpen) ? "Open" : "Closed"));
+        System.out.println(", Intake is: " + ((intakeOpen) ? "Open" : "Closed"));
     }
 
     public void open() {
@@ -17,5 +17,7 @@ public class Intake extends SubsystemBase{
     public void close() {
         intakeOpen = false;
     }
+
+    public boolean isOpen() {return intakeOpen;}
 
 }
