@@ -18,13 +18,13 @@ public class ChangeShooterWheelSpeed extends Command{
     @Override
     public void initialize() {
         if (!loop) {
-            shooterWheel.changeSpeed(amount);
+            shooterWheel.changeWantedSpeed(amount);
             this.cancel();
         }
     }
 
     @Override
     public void execute() {
-        shooterWheel.changeSpeed(amount);
+        shooterWheel.changeWantedSpeed(amount);
     }
 }

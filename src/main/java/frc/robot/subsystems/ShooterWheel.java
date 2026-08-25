@@ -3,18 +3,51 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterWheel extends SubsystemBase{
+    public enum SystemState {
+        IDLE,
+        SHOOTING,
+    }
+
+    private SystemState wantedSystemState = SystemState.IDLE;
+    private SystemState currentSystemState = SystemState.IDLE;
+
     private double rotationSpeed = 0;
+    private double wantedRotationSpeed = 0;
 
-    @Override 
+
+    @Override
     public void periodic() {
-        System.out.print("Wheel speed: " + rotationSpeed);
+        currentSystemState = handleStateTransition();
+
+        switch (currentSystemState) {
+            case IDLE:
+                break;
+            case SHOOTING:
+                handleWantedSpeed();
+                System.out.println("SHOOTING state, updating speed to: " + rotationSpeed);
+                break;
+            default:
+                break;
+        } 
     }
 
-    public void changeSpeed(double amount) {
-        rotationSpeed = Math.min(1, Math.max(rotationSpeed + amount, 0)); // clamps the rotationSpeed value between 0 and 1
+    public void changeWantedSpeed(double amount) {
+        wantedRotationSpeed = Math.min(1, Math.max(wantedRotationSpeed + amount, 0)); // clamps the rotationSpeed value between 0 and 1
     }
 
-    public void setSpeed(double speed) {
-        rotationSpeed = Math.min(1, Math.max(speed, 0)); // clamps the rotationSpeed value between 0 and 1
+    public void setWantedSpeed(double speed) {
+        wantedRotationSpeed = Math.min(1, Math.max(speed, 0)); // clamps the rotationSpeed value between 0 and 1
+    }
+
+    public void handleWantedSpeed() {
+        rotationSpeed = wantedRotationSpeed;
+    }
+
+    private SystemState handleStateTransition() {
+        return wantedSystemState;
+    }
+
+    public void setWantedState(SystemState wantedSystemState) {
+        this.wantedSystemState = wantedSystemState;
     }
 }

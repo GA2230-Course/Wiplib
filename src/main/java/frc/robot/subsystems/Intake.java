@@ -12,13 +12,13 @@ public class Intake extends SubsystemBase{
     }
 
     private SystemState wantedSystemState = SystemState.IDLE;
-    private SystemState currSystemState = SystemState.IDLE;
+    private SystemState currentSystemState = SystemState.IDLE;
 
     @Override
     public void periodic() {
-        currSystemState = handleStateTransition();
+        currentSystemState = handleStateTransition();
 
-        switch (currSystemState) {
+        switch (currentSystemState) {
             case IDLE:
                 System.out.println("IDLE state, setting voltage to: " + IntakeConstants.IDLE_VOLTAGE);
                 break;
