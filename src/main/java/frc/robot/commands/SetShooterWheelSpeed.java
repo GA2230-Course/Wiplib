@@ -15,7 +15,7 @@ public class SetShooterWheelSpeed extends Command{
     
     @Override
     public void initialize() {
-        shooterWheel.setSpeed(speed);
+        shooterWheel.setWantedSpeed(speed);
     }
 
     @Override
