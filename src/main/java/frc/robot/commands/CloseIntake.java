@@ -1,19 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.SuperstructureSubsystem.SuperState;
 
 public class CloseIntake extends Command{
-    private Intake intake;
-
-    public CloseIntake(Intake intake) {
-        this.intake = intake;
-        addRequirements(intake);
-    }
-
     @Override
     public void initialize() {
-        intake.close();
+        RobotContainer.getSuperStructure().setWantedState(SuperState.IDLE);
     }
 
     @Override

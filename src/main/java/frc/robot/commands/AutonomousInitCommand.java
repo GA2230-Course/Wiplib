@@ -12,8 +12,8 @@ public class AutonomousInitCommand extends Command {
     private SetShooterWheelSpeed setSpeedCommand;
     
     public AutonomousInitCommand(Intake intake, ShooterWheel shooterWheel) {
-        openIntakeCommand = new OpenIntakeWithTimeout(intake, Constants.AutonomousInitOpenIntakeTimeout);
-        setSpeedCommand = new SetShooterWheelSpeed(shooterWheel, Constants.AutonomousInitShooterWheelSpeed);
+        openIntakeCommand = new OpenIntakeWithTimeout(intake, Constants.AUTONOMOUS_INIT_OPEN_INTAKE_TIMEOUT);
+        setSpeedCommand = new SetShooterWheelSpeed(shooterWheel, Constants.AUTONOMOUS_INIT_SHOOTER_WHEEL_SPEED);
     }
 
     @Override
