@@ -24,7 +24,7 @@ public class ShooterWheel extends SubsystemBase{
                 break;
             case SHOOTING:
                 handleWantedSpeed();
-                System.out.println("SHOOTING state, updating speed to: " + rotationSpeed);
+                System.out.print("SHOOTING state, updating speed to: " + rotationSpeed);
                 break;
             default:
                 break;

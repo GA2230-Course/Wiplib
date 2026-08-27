@@ -9,18 +9,17 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutonomousInitCommand;
 import frc.robot.commands.ChangeShooterWheelSpeed;
-import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ShooterWheel;
+import frc.robot.subsystems.ShooterWheelConstants;
 import frc.robot.subsystems.SuperstructureSubsystem;
 import frc.robot.subsystems.SuperstructureSubsystem.SuperState;
 
 public class RobotContainer {
-  private SuperstructureSubsystem superStructure;
+  private static SuperstructureSubsystem superStructure;
   private Intake intake;
   private ShooterWheel shooterWheel;
   private Command AutonomousInitOpenIntakeCommand;
-  private Command toggleIntake;
   private Command IncreaseWheelSpeed;
   private Command DecreaseWheelSpeed;
 
@@ -31,15 +30,14 @@ public class RobotContainer {
     shooterWheel = new ShooterWheel();
     superStructure = new SuperstructureSubsystem(intake, shooterWheel);
     AutonomousInitOpenIntakeCommand = new AutonomousInitCommand(intake, shooterWheel);
-    toggleIntake = new ToggleIntake(intake);
-    IncreaseWheelSpeed = new ChangeShooterWheelSpeed(shooterWheel, Constants.ShooterWheelSpeedChangeIncrement, true);
-    DecreaseWheelSpeed = new ChangeShooterWheelSpeed(shooterWheel, -Constants.ShooterWheelSpeedChangeIncrement, true);
+    IncreaseWheelSpeed = new ChangeShooterWheelSpeed(shooterWheel, ShooterWheelConstants.SHOOTER_WHEEL_SPEED_CHANGE_INCREMENT, true);
+    DecreaseWheelSpeed = new ChangeShooterWheelSpeed(shooterWheel, -ShooterWheelConstants.SHOOTER_WHEEL_SPEED_CHANGE_INCREMENT, true);
     configureBindings();
   }
 
   private void configureBindings() {
     joystick.a().onTrue(new InstantCommand(() -> {
-      superStructure.setWantedState(superStructure.handleStateTransition() == SuperState.INTAKE ? SuperState.IDLE : SuperState.IDLE);
+      superStructure.setWantedState(superStructure.handleStateTransition() == SuperState.INTAKE ? SuperState.IDLE : SuperState.INTAKE);
     }));
 
     joystick.rightBumper().whileTrue(IncreaseWheelSpeed);
@@ -54,5 +52,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return AutonomousInitOpenIntakeCommand;
+  }
+  public static SuperstructureSubsystem getSuperStructure() {
+    return superStructure;
   }
 }
