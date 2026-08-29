@@ -9,16 +9,18 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutonomousInitCommand;
 import frc.robot.commands.ChangeShooterWheelSpeed;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ShooterWheel;
-import frc.robot.subsystems.ShooterWheelConstants;
 import frc.robot.subsystems.SuperstructureSubsystem;
+import frc.robot.subsystems.IntakeSubsystem.IntakeIOCTRE;
+import frc.robot.subsystems.IntakeSubsystem.IntakeIOSim;
+import frc.robot.subsystems.IntakeSubsystem.IntakeSubsystem;
+import frc.robot.subsystems.ShooterWheelSubsystem.ShooterWheelSubsystem;
+import frc.robot.subsystems.ShooterWheelSubsystem.ShooterWheelConstants;
 import frc.robot.subsystems.SuperstructureSubsystem.SuperState;
 
 public class RobotContainer {
   private static SuperstructureSubsystem superStructure;
-  private Intake intake;
-  private ShooterWheel shooterWheel;
+  private IntakeSubsystem intake;
+  private ShooterWheelSubsystem shooterWheel;
   private Command AutonomousInitOpenIntakeCommand;
   private Command IncreaseWheelSpeed;
   private Command DecreaseWheelSpeed;
@@ -26,8 +28,12 @@ public class RobotContainer {
   private CommandXboxController joystick = new CommandXboxController(0);
 
   public RobotContainer() {
-    intake = new Intake();
-    shooterWheel = new ShooterWheel();
+    if (Robot.isReal()) {
+      intake = new IntakeSubsystem(new IntakeIOCTRE());
+    } else {
+      intake = new IntakeSubsystem(new IntakeIOSim());
+    }
+    shooterWheel = new ShooterWheelSubsystem();
     superStructure = new SuperstructureSubsystem(intake, shooterWheel);
     AutonomousInitOpenIntakeCommand = new AutonomousInitCommand(intake, shooterWheel);
     IncreaseWheelSpeed = new ChangeShooterWheelSpeed(shooterWheel, ShooterWheelConstants.SHOOTER_WHEEL_SPEED_CHANGE_INCREMENT, true);

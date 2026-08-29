@@ -8,7 +8,7 @@ public interface IntakeIO {
     default void updateInputs(IntakeIOInputs inputs) {}
 
     @AutoLog
-    public class IntakeIOInputs {
+    public static class IntakeIOInputs {
         public double rollerMasterVelocity = 0.0;
         public double rollerMasterVoltage = 0.0;
         public double rollerMasterTemp = 0.0;

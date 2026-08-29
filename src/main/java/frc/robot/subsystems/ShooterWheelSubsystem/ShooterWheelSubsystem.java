@@ -1,8 +1,8 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.ShooterWheelSubsystem;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ShooterWheel extends SubsystemBase{
+public class ShooterWheelSubsystem extends SubsystemBase{
     public enum SystemState {
         IDLE,
         SHOOTING,
