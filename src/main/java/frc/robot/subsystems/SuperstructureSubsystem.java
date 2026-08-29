@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.IntakeSubsystem.IntakeSubsystem;
+import frc.robot.subsystems.ShooterWheelSubsystem.ShooterWheelSubsystem;
 
 public class SuperstructureSubsystem extends SubsystemBase{
     public enum SuperState {
@@ -14,10 +16,10 @@ public class SuperstructureSubsystem extends SubsystemBase{
     private SuperState wantedSuperState = SuperState.IDLE;
     private SuperState currentState = SuperState.IDLE;
 
-    private Intake intake;
-    private ShooterWheel shooterWheel;
+    private IntakeSubsystem intake;
+    private ShooterWheelSubsystem shooterWheel;
 
-    public SuperstructureSubsystem(Intake intake, ShooterWheel shooterWheel) {
+    public SuperstructureSubsystem(IntakeSubsystem intake, ShooterWheelSubsystem shooterWheel) {
         this.intake = intake;
         this.shooterWheel = shooterWheel;
     }
@@ -28,20 +30,20 @@ public class SuperstructureSubsystem extends SubsystemBase{
 
         switch (currentState) {
             case IDLE:
-                intake.setWantedState(Intake.SystemState.CLOSE);
-                shooterWheel.setWantedState(ShooterWheel.SystemState.IDLE);
+                intake.setWantedState(IntakeSubsystem.SystemState.CLOSE);
+                shooterWheel.setWantedState(ShooterWheelSubsystem.SystemState.IDLE);
                 break;
             case INTAKE:
-                intake.setWantedState(Intake.SystemState.OPEN);
-                shooterWheel.setWantedState(ShooterWheel.SystemState.IDLE);
+                intake.setWantedState(IntakeSubsystem.SystemState.OPEN);
+                shooterWheel.setWantedState(ShooterWheelSubsystem.SystemState.IDLE);
                 break;
             case SHOOTING:
-                intake.setWantedState(intakeWhileShooting ? Intake.SystemState.OPEN : Intake.SystemState.CLOSE);
-                shooterWheel.setWantedState(ShooterWheel.SystemState.SHOOTING);
+                intake.setWantedState(intakeWhileShooting ? IntakeSubsystem.SystemState.OPEN : IntakeSubsystem.SystemState.CLOSE);
+                shooterWheel.setWantedState(ShooterWheelSubsystem.SystemState.SHOOTING);
                 break;
             default:
-                intake.setWantedState(Intake.SystemState.IDLE);
-                shooterWheel.setWantedState(ShooterWheel.SystemState.IDLE);
+                intake.setWantedState(IntakeSubsystem.SystemState.IDLE);
+                shooterWheel.setWantedState(ShooterWheelSubsystem.SystemState.IDLE);
                 break;
         }
     }

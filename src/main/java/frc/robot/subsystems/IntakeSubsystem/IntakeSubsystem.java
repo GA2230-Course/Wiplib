@@ -1,8 +1,12 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.IntakeSubsystem;
+
+
+
+import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase{
+public class IntakeSubsystem extends SubsystemBase{
     private boolean intakeOpen = false;
 
     public enum SystemState {
@@ -14,8 +18,18 @@ public class Intake extends SubsystemBase{
     private SystemState wantedSystemState = SystemState.IDLE;
     private SystemState currentSystemState = SystemState.IDLE;
 
+    private IntakeIO io;
+    private IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
+
+
+    public IntakeSubsystem(IntakeIO io) {
+        this.io = io;
+    }
+
     @Override
     public void periodic() {
+        io.updateInputs(inputs);
+        Logger.processInputs("Intake", inputs);
         currentSystemState = handleStateTransition();
 
         switch (currentSystemState) {

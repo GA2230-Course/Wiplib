@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShooterWheel;
+import frc.robot.subsystems.ShooterWheelSubsystem.ShooterWheelSubsystem;
 
 public class SetShooterWheelSpeed extends Command{
-    private ShooterWheel shooterWheel;
+    private ShooterWheelSubsystem shooterWheel;
     private double speed;
 
-    public SetShooterWheelSpeed(ShooterWheel shooterWheel, double speed) {
+    public SetShooterWheelSpeed(ShooterWheelSubsystem shooterWheel, double speed) {
         this.shooterWheel = shooterWheel;
         this.speed = speed;
         addRequirements(shooterWheel);
